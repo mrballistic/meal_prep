@@ -28,7 +28,7 @@ A modern React application for discovering recipes and planning meals, with a fo
 - npm or yarn
 - Spoonacular API key (get one at [Spoonacular's website](https://spoonacular.com/food-api))
 
-### Installation
+### Quick Start
 
 1. Clone the repository:
 ```bash
@@ -36,27 +36,43 @@ git clone https://github.com/yourusername/meal-planner.git
 cd meal-planner
 ```
 
-2. Install dependencies:
+2. Run the start script:
+```bash
+./start.sh
+```
+
+The script will:
+- Check for required dependencies (Node.js and npm)
+- Create .env file from .env.example if needed
+- Install project dependencies
+- Verify environment variables
+- Start the development server
+
+The application will be available at `http://localhost:3000`.
+
+### Manual Installation
+
+If you prefer to set up manually:
+
+1. Install dependencies:
 ```bash
 npm install
 ```
 
-3. Create a `.env` file in the root directory:
+2. Create a `.env` file in the root directory:
 ```bash
 cp .env.example .env
 ```
 
-4. Add your Spoonacular API key to the `.env` file:
+3. Add your Spoonacular API key to the `.env` file:
 ```env
 REACT_APP_SPOONACULAR_API_KEY=your_api_key_here
 ```
 
-5. Start the development server:
+4. Start the development server:
 ```bash
 npm start
 ```
-
-The application will be available at `http://localhost:3000`.
 
 ## Available Scripts
 
