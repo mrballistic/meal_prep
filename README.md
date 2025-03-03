@@ -14,7 +14,7 @@ A modern React application for discovering recipes and planning meals, with a fo
 ## Tech Stack
 
 - React 19 with TypeScript
-- Material-UI v5
+- Material-UI v6.4.6
 - React Router v6
 - React Query
 - Axios

@@ -1,8 +1,8 @@
 # Production Setup Guide
 
-## Dark Mode Implementation
+## Core Configuration
 
-### 1. Theme Configuration
+### 1. Theme Configuration (MUI v6.4.6)
 ```typescript
 // utils/theme.ts
 import { createTheme, PaletteMode } from '@mui/material';
@@ -42,20 +42,6 @@ export const getTheme = (mode: PaletteMode) => createTheme({
     },
   },
 });
-
-// Usage in App.tsx:
-const prefersDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches;
-const [mode, setMode] = useState<PaletteMode>(prefersDarkMode ? 'dark' : 'light');
-
-useEffect(() => {
-  const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
-  const handleChange = (e: MediaQueryListEvent) => {
-    setMode(e.matches ? 'dark' : 'light');
-  };
-  
-  mediaQuery.addEventListener('change', handleChange);
-  return () => mediaQuery.removeEventListener('change', handleChange);
-}, []);
 ```
 
 ## Environment Setup
@@ -171,3 +157,6 @@ Thumbs.db
 - [ ] Verify favicon across devices
 - [ ] Check browser caching behavior
 - [ ] Test cache-busting mechanisms
+- [ ] Verify MUI v6.4.6 compatibility
+- [ ] Test responsive layouts
+- [ ] Validate local storage persistence
