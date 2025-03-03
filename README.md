@@ -5,7 +5,7 @@ A modern React application for discovering recipes and planning meals, with a fo
 ## Features
 
 - 🔍 Recipe search with advanced filtering
-- 💾 Save favorite recipes locally
+- 💾 Save favorite recipes with persistent local storage
 - 📱 Responsive design with dark mode support
 - 📅 Weekly meal planning
 - 🎨 Material Design UI
@@ -95,13 +95,19 @@ npm start
 - Search through thousands of recipes
 - Filter by dietary restrictions
 - Real-time search results
-- Save favorite recipes
+- Save favorite recipes with persistent storage
+- Recipe data persists through app restarts
 
 ### Meal Planning
 - Weekly meal planning interface
 - Organize meals by breakfast, lunch, and dinner
 - Save and load meal plans
 - Automatic local storage persistence
+
+### Branding
+- Custom fork and knife favicon
+- Consistent branding across browsers
+- High-quality app icon for bookmarks
 
 ### Dark Mode
 - Automatic system preference detection
