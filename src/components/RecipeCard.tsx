@@ -1,7 +1,8 @@
-import { Card, CardContent, CardMedia, Typography, IconButton, Chip, Box } from '@mui/material';
+import { Card, CardContent, CardMedia, Typography, IconButton, Chip, Box, ButtonBase } from '@mui/material';
 import { Bookmark as BookmarkIcon, BookmarkBorder as BookmarkBorderIcon } from '@mui/icons-material';
 import { Recipe } from '../types';
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 interface RecipeCardProps {
   recipe: Recipe;
@@ -17,6 +18,7 @@ preloadFallbackImage.src = FALLBACK_IMAGE;
 
 export const RecipeCard = ({ recipe, onSave, isSaved }: RecipeCardProps) => {
   const [imageError, setImageError] = useState(false);
+  const navigate = useNavigate();
 
   const handleImageError = (e: React.SyntheticEvent<HTMLImageElement, Event>) => {
     const img = e.currentTarget;
@@ -27,18 +29,29 @@ export const RecipeCard = ({ recipe, onSave, isSaved }: RecipeCardProps) => {
   };
 
   return (
-    <Card 
-      component="article"
+    <ButtonBase 
+      onClick={() => navigate(`/recipe/${recipe.id}`)}
       sx={{ 
-        maxWidth: 345,
-        height: '100%',
-        display: 'flex',
-        flexDirection: 'column',
-        '&:focus-within': {
-          outline: '2px solid #1976d2'
-        }
+        display: 'block',
+        width: '100%',
+        textAlign: 'left',
+        borderRadius: 1
       }}
     >
+      <Card 
+        component="article"
+        sx={{ 
+          maxWidth: 345,
+          height: '100%',
+          display: 'flex',
+          flexDirection: 'column',
+          transition: 'transform 0.2s, box-shadow 0.2s',
+          '&:hover': {
+            transform: 'translateY(-4px)',
+            boxShadow: 4
+          }
+        }}
+      >
       <CardMedia
         component="img"
         height="194"
@@ -92,7 +105,10 @@ export const RecipeCard = ({ recipe, onSave, isSaved }: RecipeCardProps) => {
 
         {onSave && (
           <IconButton
-            onClick={() => onSave(recipe)}
+            onClick={(e) => {
+              e.stopPropagation();
+              onSave(recipe);
+            }}
             aria-label={`${isSaved ? 'Remove from' : 'Save to'} saved recipes: ${recipe.title}`}
             sx={{ mt: 'auto' }}
           >
@@ -100,6 +116,7 @@ export const RecipeCard = ({ recipe, onSave, isSaved }: RecipeCardProps) => {
           </IconButton>
         )}
       </CardContent>
-    </Card>
+      </Card>
+    </ButtonBase>
   );
 };

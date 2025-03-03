@@ -9,6 +9,7 @@ import { HomePage } from './pages/HomePage';
 import { SearchPage } from './pages/SearchPage';
 import { PlannerPage } from './pages/PlannerPage';
 import { SavedRecipesPage } from './pages/SavedRecipesPage';
+import { RecipeDetailPage } from './pages/RecipeDetailPage';
 import { RecipeProvider } from './context/RecipeContext';
 
 const queryClient = new QueryClient({
@@ -42,14 +43,17 @@ function App() {
         <RecipeProvider>
         <BrowserRouter>
           <Box sx={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }}>
-            <Navigation />
+            <Box sx={{ position: 'fixed', top: 0, left: 0, right: 0, zIndex: 1100 }}>
+              <Navigation />
+            </Box>
             <Box 
               component="main" 
               id="main-content" 
               sx={{ 
                 flexGrow: 1,
                 bgcolor: 'background.default',
-                minHeight: '100vh'
+                minHeight: '100vh',
+                pt: { xs: 7, sm: 8 } // Account for AppBar height
               }}
             >
               <Routes>
@@ -57,6 +61,7 @@ function App() {
                 <Route path="/search" element={<SearchPage />} />
                 <Route path="/planner" element={<PlannerPage />} />
                 <Route path="/saved" element={<SavedRecipesPage />} />
+                <Route path="/recipe/:id" element={<RecipeDetailPage />} />
               </Routes>
             </Box>
           </Box>

@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Container, Grid, Typography, Alert, Button, Box } from '@mui/material';
+import { Container, Grid, Typography, Alert, Button, Box, Paper } from '@mui/material';
 import { SearchBar } from '../components/SearchBar';
 import { RecipeCard } from '../components/RecipeCard';
 import { Recipe, SearchResponse } from '../types';
@@ -58,35 +58,66 @@ export const SearchPage = () => {
   };
 
   return (
-    <Container maxWidth="lg" sx={{ py: 4 }}>
-      <Typography variant="h4" component="h1" gutterBottom>
-        Search Recipes
-      </Typography>
+    <Container maxWidth="lg" sx={{ py: 3 }}>
+      <Paper 
+        elevation={2}
+        sx={{ 
+          p: { xs: 2, sm: 3 },
+          mb: 3,
+          borderRadius: 2
+        }}
+      >
+        <Typography variant="h4" component="h1" gutterBottom>
+          Search Recipes
+        </Typography>
 
-      <SearchBar 
-        value={searchTerm} 
-        onChange={handleSearch}
-      />
+        <SearchBar 
+          value={searchTerm} 
+          onChange={handleSearch}
+        />
+      </Paper>
 
       {isLoading && (
-        <Grid container spacing={3} sx={{ mt: 2 }}>
-          {Array(RECIPES_PER_PAGE).fill(null).map((_, index) => (
-            <Grid item xs={12} sm={6} md={4} key={index}>
-              <RecipeCardSkeleton />
-            </Grid>
-          ))}
-        </Grid>
+        <Paper 
+          elevation={2}
+          sx={{ 
+            p: { xs: 2, sm: 3 },
+            borderRadius: 2
+          }}
+        >
+          <Grid container spacing={3}>
+            {Array(RECIPES_PER_PAGE).fill(null).map((_, index) => (
+              <Grid item xs={12} sm={6} md={4} key={index}>
+                <RecipeCardSkeleton />
+              </Grid>
+            ))}
+          </Grid>
+        </Paper>
       )}
 
       {error && (
-        <Alert severity="error" sx={{ mt: 2 }}>
-          Error loading recipes. Please try again later.
-        </Alert>
+        <Paper 
+          elevation={2}
+          sx={{ 
+            p: { xs: 2, sm: 3 },
+            borderRadius: 2
+          }}
+        >
+          <Alert severity="error">
+            Error loading recipes. Please try again later.
+          </Alert>
+        </Paper>
       )}
 
-      {!isLoading && !error && (
-        <>
-          <Grid container spacing={3} sx={{ mt: 2 }}>
+      {!isLoading && !error && searchTerm && (
+        <Paper 
+          elevation={2}
+          sx={{ 
+            p: { xs: 2, sm: 3 },
+            borderRadius: 2
+          }}
+        >
+          <Grid container spacing={3}>
             {allRecipes.length === 0 ? (
               <Grid item xs={12}>
                 <Typography variant="body1" color="text.secondary">
@@ -107,7 +138,7 @@ export const SearchPage = () => {
           </Grid>
 
           {hasMore && (
-            <Box sx={{ mt: 4, display: 'flex', justifyContent: 'center' }}>
+            <Box sx={{ mt: 3, display: 'flex', justifyContent: 'center' }}>
               <Button
                 variant="contained"
                 onClick={() => fetchNextPage()}
@@ -118,7 +149,7 @@ export const SearchPage = () => {
               </Button>
             </Box>
           )}
-        </>
+        </Paper>
       )}
     </Container>
   );

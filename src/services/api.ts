@@ -1,9 +1,9 @@
 import axios from 'axios';
-import { SearchResponse, Recipe } from '../types';
+import { SearchResponse, Recipe, RecipeDetails } from '../types';
 
 const DEFAULT_IMAGE = 'https://placehold.co/345x194/e0e0e0/666666.png?text=No+Image+Available';
 
-const validateRecipe = (recipe: any): Recipe => {
+const validateRecipe = (recipe: any): Recipe | RecipeDetails => {
   return {
     ...recipe,
     image: recipe.image && recipe.image.startsWith('http') 
@@ -47,9 +47,13 @@ export const recipeApi = {
     };
   },
 
-  getById: async (id: number): Promise<Recipe> => {
-    const { data } = await api.get(`/recipes/${id}/information`);
-    return validateRecipe(data);
+  getById: async (id: number): Promise<RecipeDetails> => {
+    const { data } = await api.get(`/recipes/${id}/information`, {
+      params: {
+        includeNutrition: true
+      }
+    });
+    return validateRecipe(data) as RecipeDetails;
   },
 
   getRandomRecipes: async (number: number = 10): Promise<Recipe[]> => {

@@ -1,4 +1,4 @@
-import { Box, Container, Typography, Button, Grid, Paper } from '@mui/material';
+import { Container, Typography, Button, Grid, Paper } from '@mui/material';
 import { useState, useEffect } from 'react';
 import { HomePageSkeleton } from '../components/skeletons/HomePageSkeleton';
 import { Search as SearchIcon, Bookmark as BookmarkIcon, CalendarMonth as CalendarIcon } from '@mui/icons-material';
@@ -24,22 +24,38 @@ export const HomePage = () => {
 
   if (isLoading) {
     return (
-      <Container maxWidth="lg" sx={{ py: 4 }}>
-        <HomePageSkeleton />
+      <Container maxWidth="lg" sx={{ py: 3 }}>
+        <Paper 
+          elevation={2}
+          sx={{ 
+            p: { xs: 2, sm: 3 },
+            borderRadius: 2
+          }}
+        >
+          <HomePageSkeleton />
+        </Paper>
       </Container>
     );
   }
 
   return (
-    <Container maxWidth="lg" sx={{ py: 4 }}>
-      <Box sx={{ mb: 6 }}>
+    <Container maxWidth="lg" sx={{ py: 3 }}>
+      <Paper 
+        elevation={2}
+        sx={{ 
+          p: { xs: 2, sm: 3 },
+          mb: 3,
+          borderRadius: 2,
+          textAlign: 'center'
+        }}
+      >
         <Typography variant="h3" component="h1" gutterBottom>
           Welcome to Meal Planner
         </Typography>
         <Typography variant="h5" component="h2" color="text.secondary" gutterBottom>
           Plan your meals, discover recipes, and eat healthier
         </Typography>
-      </Box>
+      </Paper>
 
       <Grid container spacing={4}>
         <Grid item xs={12} md={4}>
@@ -134,7 +150,14 @@ export const HomePage = () => {
       </Grid>
 
       {recentRecipes.length > 0 && (
-        <Box sx={{ mt: 6 }}>
+        <Paper 
+          elevation={2}
+          sx={{ 
+            p: { xs: 2, sm: 3 },
+            mt: 3,
+            borderRadius: 2
+          }}
+        >
           <Typography variant="h5" component="h2" gutterBottom>
             Recently Saved Recipes
           </Typography>
@@ -149,7 +172,7 @@ export const HomePage = () => {
               </Grid>
             ))}
           </Grid>
-        </Box>
+        </Paper>
       )}
     </Container>
   );

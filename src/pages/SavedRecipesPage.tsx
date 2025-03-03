@@ -1,4 +1,4 @@
-import { Container, Grid, Typography, Alert } from '@mui/material';
+import { Container, Grid, Typography, Alert, Paper } from '@mui/material';
 import { RecipeCard } from '../components/RecipeCard';
 import { useRecipes } from '../context/RecipeContext';
 import { RecipeCardSkeleton } from '../components/skeletons/RecipeCardSkeleton';
@@ -22,33 +22,48 @@ export const SavedRecipesPage = () => {
 
   if (isLoading) {
     return (
-      <Container maxWidth="lg" sx={{ py: 4 }}>
-        <Typography variant="h4" component="h1" gutterBottom>
-          Saved Recipes
-        </Typography>
-        <Grid container spacing={3}>
+      <Container maxWidth="lg" sx={{ py: 3 }}>
+        <Paper 
+          elevation={2}
+          sx={{ 
+            p: { xs: 2, sm: 3 },
+            borderRadius: 2
+          }}
+        >
+          <Typography variant="h4" component="h1" gutterBottom>
+            Saved Recipes
+          </Typography>
+          <Grid container spacing={3}>
           {Array(3).fill(null).map((_, index) => (
             <Grid item xs={12} sm={6} md={4} key={index}>
               <RecipeCardSkeleton />
             </Grid>
           ))}
-        </Grid>
+          </Grid>
+        </Paper>
       </Container>
     );
   }
 
   return (
-    <Container maxWidth="lg" sx={{ py: 4 }}>
-      <Typography variant="h4" component="h1" gutterBottom>
-        Saved Recipes
-      </Typography>
+    <Container maxWidth="lg" sx={{ py: 3 }}>
+      <Paper 
+        elevation={2}
+        sx={{ 
+          p: { xs: 2, sm: 3 },
+          borderRadius: 2
+        }}
+      >
+        <Typography variant="h4" component="h1" gutterBottom>
+          Saved Recipes
+        </Typography>
 
-      {state.savedRecipes.length === 0 ? (
-        <Alert severity="info">
-          You haven't saved any recipes yet. Search for recipes and save them to see them here!
-        </Alert>
-      ) : (
-        <Grid container spacing={3}>
+        {state.savedRecipes.length === 0 ? (
+          <Alert severity="info">
+            You haven't saved any recipes yet. Search for recipes and save them to see them here!
+          </Alert>
+        ) : (
+          <Grid container spacing={3}>
           {state.savedRecipes.map(recipe => (
             <Grid item xs={12} sm={6} md={4} key={recipe.id}>
               <RecipeCard
@@ -58,8 +73,9 @@ export const SavedRecipesPage = () => {
               />
             </Grid>
           ))}
-        </Grid>
-      )}
+          </Grid>
+        )}
+      </Paper>
     </Container>
   );
 };
