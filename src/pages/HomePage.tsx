@@ -1,4 +1,6 @@
 import { Box, Container, Typography, Button, Grid, Paper } from '@mui/material';
+import { useState, useEffect } from 'react';
+import { HomePageSkeleton } from '../components/skeletons/HomePageSkeleton';
 import { Search as SearchIcon, Bookmark as BookmarkIcon, CalendarMonth as CalendarIcon } from '@mui/icons-material';
 import { useNavigate } from 'react-router-dom';
 import { useRecipes } from '../context/RecipeContext';
@@ -8,6 +10,25 @@ export const HomePage = () => {
   const navigate = useNavigate();
   const { state } = useRecipes();
   const recentRecipes = state.savedRecipes.slice(0, 3);
+
+  // Add a small delay to show loading state
+  const [isLoading, setIsLoading] = useState(true);
+  
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setIsLoading(false);
+    }, 1000);
+    
+    return () => clearTimeout(timer);
+  }, []);
+
+  if (isLoading) {
+    return (
+      <Container maxWidth="lg" sx={{ py: 4 }}>
+        <HomePageSkeleton />
+      </Container>
+    );
+  }
 
   return (
     <Container maxWidth="lg" sx={{ py: 4 }}>

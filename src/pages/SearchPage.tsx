@@ -1,11 +1,12 @@
 import { useState } from 'react';
-import { Container, Grid, CircularProgress, Typography, Alert } from '@mui/material';
+import { Container, Grid, Typography, Alert } from '@mui/material';
 import { SearchBar } from '../components/SearchBar';
 import { RecipeCard } from '../components/RecipeCard';
 import { Recipe } from '../types';
 import { recipeApi } from '../services/api';
 import { useQuery } from '@tanstack/react-query';
 import { useRecipes } from '../context/RecipeContext';
+import { RecipeCardSkeleton } from '../components/skeletons/RecipeCardSkeleton';
 
 export const SearchPage = () => {
   const [searchTerm, setSearchTerm] = useState('');
@@ -39,8 +40,12 @@ export const SearchPage = () => {
       />
 
       {isLoading && (
-        <Grid container justifyContent="center" sx={{ py: 4 }}>
-          <CircularProgress />
+        <Grid container spacing={3} sx={{ mt: 2 }}>
+          {Array(6).fill(null).map((_, index) => (
+            <Grid item xs={12} sm={6} md={4} key={index}>
+              <RecipeCardSkeleton />
+            </Grid>
+          ))}
         </Grid>
       )}
 

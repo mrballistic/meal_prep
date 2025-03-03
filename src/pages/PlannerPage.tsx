@@ -1,11 +1,32 @@
 import { Container, Grid, Paper, Typography, Box } from '@mui/material';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { MealPlan } from '../types';
+import { PlannerSkeleton } from '../components/skeletons/PlannerSkeleton';
 
 export const PlannerPage = () => {
   const [mealPlan] = useState<MealPlan>({});
+  const [isLoading, setIsLoading] = useState(true);
   const days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
   const mealTypes = ['breakfast', 'lunch', 'dinner'] as const;
+
+  useEffect(() => {
+    // Simulate loading time for smoother UX
+    const timer = setTimeout(() => {
+      setIsLoading(false);
+    }, 1000);
+    return () => clearTimeout(timer);
+  }, []);
+
+  if (isLoading) {
+    return (
+      <Container maxWidth="lg" sx={{ py: 4 }}>
+        <Typography variant="h4" component="h1" gutterBottom>
+          Weekly Meal Planner
+        </Typography>
+        <PlannerSkeleton />
+      </Container>
+    );
+  }
 
   return (
     <Container maxWidth="lg" sx={{ py: 4 }}>
