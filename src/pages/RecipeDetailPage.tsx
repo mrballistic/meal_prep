@@ -1,8 +1,36 @@
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { Box, Container, Typography, List, ListItem, ListItemText, Chip, CircularProgress, Alert, Paper } from '@mui/material';
-import { RecipeDetails } from '../types';
+import { Box, Container, Typography, List, ListItem, ListItemText, Chip, CircularProgress, Alert, Paper, Grid, IconButton, Tooltip } from '@mui/material';
+import { Bookmark as BookmarkIcon, BookmarkBorder as BookmarkBorderIcon } from '@mui/icons-material';
+import { Recipe, RecipeDetails } from '../types';
 import { recipeApi } from '../services/api';
+import { useRecipes } from '../context/RecipeContext';
+
+const SaveButton = ({ recipe }: { recipe: Recipe }) => {
+  const { state, dispatch } = useRecipes();
+  const isSaved = state.savedRecipes.some(saved => saved.id === recipe.id);
+
+  const handleClick = () => {
+    if (isSaved) {
+      dispatch({ type: 'REMOVE_RECIPE', payload: recipe.id });
+    } else {
+      dispatch({ type: 'ADD_RECIPE', payload: recipe });
+    }
+  };
+
+  return (
+    <Tooltip title={isSaved ? "Remove from saved recipes" : "Save recipe"}>
+      <IconButton 
+        onClick={handleClick}
+        aria-label={isSaved ? "Remove from saved recipes" : "Save recipe"}
+        color="primary"
+        sx={{ mt: 1 }}
+      >
+        {isSaved ? <BookmarkIcon /> : <BookmarkBorderIcon />}
+      </IconButton>
+    </Tooltip>
+  );
+};
 
 const htmlContentStyles = {
   '& a': {
@@ -90,9 +118,12 @@ export const RecipeDetailPage = () => {
       >
         {/* Header */}
         <Box mb={4}>
-          <Typography variant="h4" component="h1" gutterBottom>
-            {recipe.title}
-          </Typography>
+          <Box sx={{ display: 'flex', alignItems: 'flex-start', gap: 1 }}>
+            <Typography variant="h4" component="h1" gutterBottom sx={{ flex: 1 }}>
+              {recipe.title}
+            </Typography>
+            <SaveButton recipe={recipe} />
+          </Box>
           
           <Box sx={{ display: 'flex', gap: 2, mb: 2 }}>
             {recipe.readyInMinutes && (
@@ -183,16 +214,80 @@ export const RecipeDetailPage = () => {
 
         {/* Nutrition Information */}
         {recipe.nutrition && (
-          <Box>
+          <Box mb={4}>
             <Typography variant="h6" component="h2" gutterBottom>
               Nutrition Information
             </Typography>
-            <Box sx={{ display: 'flex', gap: 2, flexWrap: 'wrap' }}>
-              <Typography variant="body2">Calories: {recipe.nutrition.calories}</Typography>
-              <Typography variant="body2">Protein: {recipe.nutrition.protein}</Typography>
-              <Typography variant="body2">Carbs: {recipe.nutrition.carbs}</Typography>
-              <Typography variant="body2">Fat: {recipe.nutrition.fat}</Typography>
-            </Box>
+            <Grid container spacing={2}>
+              <Grid item xs={6} sm={3}>
+                <Paper
+                  variant="outlined"
+                  sx={{
+                    p: 2,
+                    textAlign: 'center',
+                    height: '100%'
+                  }}
+                >
+                  <Typography variant="body2" color="text.secondary" gutterBottom>
+                    Calories
+                  </Typography>
+                  <Typography variant="h6">
+                    {recipe.nutrition.calories}
+                  </Typography>
+                </Paper>
+              </Grid>
+              <Grid item xs={6} sm={3}>
+                <Paper
+                  variant="outlined"
+                  sx={{
+                    p: 2,
+                    textAlign: 'center',
+                    height: '100%'
+                  }}
+                >
+                  <Typography variant="body2" color="text.secondary" gutterBottom>
+                    Protein
+                  </Typography>
+                  <Typography variant="h6">
+                    {recipe.nutrition.protein}
+                  </Typography>
+                </Paper>
+              </Grid>
+              <Grid item xs={6} sm={3}>
+                <Paper
+                  variant="outlined"
+                  sx={{
+                    p: 2,
+                    textAlign: 'center',
+                    height: '100%'
+                  }}
+                >
+                  <Typography variant="body2" color="text.secondary" gutterBottom>
+                    Carbs
+                  </Typography>
+                  <Typography variant="h6">
+                    {recipe.nutrition.carbs}
+                  </Typography>
+                </Paper>
+              </Grid>
+              <Grid item xs={6} sm={3}>
+                <Paper
+                  variant="outlined"
+                  sx={{
+                    p: 2,
+                    textAlign: 'center',
+                    height: '100%'
+                  }}
+                >
+                  <Typography variant="body2" color="text.secondary" gutterBottom>
+                    Fat
+                  </Typography>
+                  <Typography variant="h6">
+                    {recipe.nutrition.fat}
+                  </Typography>
+                </Paper>
+              </Grid>
+            </Grid>
           </Box>
         )}
       </Paper>

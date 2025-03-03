@@ -41,7 +41,7 @@ export const Navigation = () => {
             <MenuIcon />
           </IconButton>
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-            Meal Planner
+            🍴 Meal Planner
           </Typography>
           
           {/* Skip Link for Keyboard Users */}
@@ -71,6 +71,16 @@ export const Navigation = () => {
         aria-label="navigation menu"
       >
         <List sx={{ width: 250 }} role="menu">
+          <ListItemText 
+            primary="🍴 Meal Planner 🥄" 
+            sx={{ 
+              textAlign: 'center', 
+              py: 2,
+              '& .MuiTypography-root': {
+                fontWeight: 'bold'
+              }
+            }} 
+          />
           {menuItems.map(({ text, path, icon }) => (
             <ListItemButton
               key={text}

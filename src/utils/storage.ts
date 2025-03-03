@@ -1,13 +1,9 @@
-export const StorageKeys = {
-  SAVED_RECIPES: 'savedRecipes',
-  MEAL_PLAN: 'mealPlan',
-  USER_PREFERENCES: 'userPreferences'
-} as const;
+type StorageKey = 'SAVED_RECIPES' | 'MEAL_PLAN' | 'USER_PREFERENCES';
 
 export const storage = {
-  get: (key: keyof typeof StorageKeys) => {
+  get: (key: StorageKey) => {
     try {
-      const item = localStorage.getItem(StorageKeys[key]);
+      const item = localStorage.getItem(key);
       return item ? JSON.parse(item) : null;
     } catch (error) {
       console.error(`Error reading from localStorage:`, error);
@@ -15,17 +11,17 @@ export const storage = {
     }
   },
 
-  set: (key: keyof typeof StorageKeys, value: any) => {
+  set: (key: StorageKey, value: any) => {
     try {
-      localStorage.setItem(StorageKeys[key], JSON.stringify(value));
+      localStorage.setItem(key, JSON.stringify(value));
     } catch (error) {
       console.error(`Error writing to localStorage:`, error);
     }
   },
 
-  remove: (key: keyof typeof StorageKeys) => {
+  remove: (key: StorageKey) => {
     try {
-      localStorage.removeItem(StorageKeys[key]);
+      localStorage.removeItem(key);
     } catch (error) {
       console.error(`Error removing from localStorage:`, error);
     }

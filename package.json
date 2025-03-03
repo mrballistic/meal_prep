@@ -1,6 +1,6 @@
 {
-  "name": "meal-planner",
-  "version": "0.1.0",
+  "name": "Meal Planner",
+  "version": "1.1.0",
   "private": true,
   "dependencies": {
     "@emotion/react": "^11.14.0",
@@ -17,6 +17,7 @@
     "@types/react": "^19.0.10",
     "@types/react-dom": "^19.0.4",
     "axios": "^1.8.1",
+    "canvas": "^2.11.2",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "react-router-dom": "^7.2.0",
@@ -47,5 +48,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "emoji-favicon": "^0.3.0"
   }
 }

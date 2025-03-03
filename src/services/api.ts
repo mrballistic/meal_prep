@@ -4,12 +4,23 @@ import { SearchResponse, Recipe, RecipeDetails } from '../types';
 const DEFAULT_IMAGE = 'https://placehold.co/345x194/e0e0e0/666666.png?text=No+Image+Available';
 
 const validateRecipe = (recipe: any): Recipe | RecipeDetails => {
-  return {
+  const validatedRecipe = {
     ...recipe,
     image: recipe.image && recipe.image.startsWith('http') 
       ? recipe.image 
       : DEFAULT_IMAGE
   };
+
+  if (recipe.nutrition) {
+    validatedRecipe.nutrition = {
+      calories: recipe.nutrition.nutrients?.find((n: any) => n.name === 'Calories')?.amount + ' kcal',
+      protein: recipe.nutrition.nutrients?.find((n: any) => n.name === 'Protein')?.amount + 'g',
+      carbs: recipe.nutrition.nutrients?.find((n: any) => n.name === 'Carbohydrates')?.amount + 'g',
+      fat: recipe.nutrition.nutrients?.find((n: any) => n.name === 'Fat')?.amount + 'g'
+    };
+  }
+
+  return validatedRecipe;
 };
 
 export const api = axios.create({
