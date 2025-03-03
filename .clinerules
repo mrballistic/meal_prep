@@ -1,0 +1,174 @@
+# Cline Rules for Meal Planner Project
+
+## Project Patterns
+
+### 1. File Organization
+- Components go in src/components/
+- Pages go in src/pages/
+- Tests are co-located with components in __tests__ folders
+- Skeleton loaders are in src/components/skeletons/
+- Types are centralized in src/types/
+- Utils are in src/utils/
+
+### 2. Naming Conventions
+- Components: PascalCase (e.g., RecipeCard.tsx)
+- Files: kebab-case (e.g., recipe-card.test.tsx)
+- Folders: kebab-case
+- Types/Interfaces: PascalCase with descriptive names
+- Constants: UPPER_SNAKE_CASE
+- Functions: camelCase
+
+### 3. Component Patterns
+- Use functional components with hooks
+- Co-locate tests with components
+- Include skeleton loader for async components
+- Implement error boundaries where needed
+- Use TypeScript for type safety
+
+### 4. Testing Patterns
+- Test files end in .test.tsx
+- Co-locate tests in __tests__ folders
+- Use React Testing Library
+- Focus on user interactions
+- Test error states and loading states
+
+### 5. State Management
+- Use React Query for API state
+- Use Context for global state
+- Use local storage for persistence
+- Implement type-safe storage patterns
+
+## Project Preferences
+
+### 1. Code Style
+- Use TypeScript strict mode
+- Prefer explicit types over inference
+- Use interface over type when possible
+- Use async/await over promises
+- Use early returns for cleaner code
+
+### 2. Component Structure
+```typescript
+// Template for new components
+import React from 'react';
+import { styled } from '@mui/material/styles';
+
+interface ComponentProps {
+  // Props here
+}
+
+const StyledComponent = styled('div')(({ theme }) => ({
+  // Styles here
+}));
+
+export const Component: React.FC<ComponentProps> = (props) => {
+  // Implementation here
+};
+```
+
+### 3. Testing Structure
+```typescript
+// Template for test files
+import { render, screen } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
+
+describe('ComponentName', () => {
+  it('should render successfully', () => {
+    // Test implementation
+  });
+
+  it('should handle user interactions', async () => {
+    // Test implementation
+  });
+
+  it('should handle error states', () => {
+    // Test implementation
+  });
+});
+```
+
+## Known Patterns
+
+### 1. Recipe Management
+- Recipes are saved to local storage
+- Recipe state is managed through context
+- Recipe cards show save status
+- Recipe search uses debouncing
+
+### 2. Navigation
+- Uses React Router v7.2.0
+- Includes saved recipes badge
+- Responsive design patterns
+- Accessibility features
+
+### 3. Error Handling
+- Component-level error boundaries
+- API error interceptors
+- User-friendly error messages
+- Fallback UI components
+
+### 4. Performance
+- Lazy loading for routes
+- Image optimization
+- Caching strategies
+- Bundle optimization
+
+## Project Intelligence
+
+### 1. Critical Paths
+- Recipe search and save functionality
+- Meal planning calendar interface
+- Local storage integration
+- Theme management
+
+### 2. Common Challenges
+- Complex state management in meal planner
+- Drag and drop implementation
+- Performance optimization
+- Testing coverage
+
+### 3. Future Considerations
+- Keep code modular for future auth
+- Plan for backend integration
+- Consider offline capabilities
+- Prepare for social features
+
+## Tool Usage Patterns
+
+### 1. Development
+- Use npm for package management
+- Use VSCode as primary IDE
+- Use Chrome DevTools for debugging
+- Use React DevTools for component inspection
+
+### 2. Testing
+- Jest for unit testing
+- React Testing Library for component tests
+- Chrome DevTools for performance testing
+- Lighthouse for auditing
+
+### 3. Documentation
+- JSDoc for component documentation
+- README for setup instructions
+- Inline comments for complex logic
+- Type definitions for API contracts
+
+## Evolution Notes
+
+### 1. Project Growth
+- Started with basic recipe search
+- Added recipe saving
+- Implementing meal planning
+- Planning future features
+
+### 2. Technical Decisions
+- Chose MUI for UI components
+- Implemented React Query for API state
+- Using TypeScript for type safety
+- Local storage for persistence
+
+### 3. Learning Points
+- Effective component organization
+- State management patterns
+- Testing strategies
+- Performance optimization
