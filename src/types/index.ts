@@ -42,3 +42,10 @@ export interface UserPreferences {
   excludedIngredients: string[];
   servingSize: number;
 }
+
+export interface SearchResponse {
+  results: Recipe[];
+  totalResults: number;
+  offset: number;
+  number: number;
+}

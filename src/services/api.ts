@@ -1,4 +1,16 @@
 import axios from 'axios';
+import { SearchResponse, Recipe } from '../types';
+
+const DEFAULT_IMAGE = 'https://placehold.co/345x194/e0e0e0/666666.png?text=No+Image+Available';
+
+const validateRecipe = (recipe: any): Recipe => {
+  return {
+    ...recipe,
+    image: recipe.image && recipe.image.startsWith('http') 
+      ? recipe.image 
+      : DEFAULT_IMAGE
+  };
+};
 
 export const api = axios.create({
   baseURL: 'https://api.spoonacular.com',
@@ -20,20 +32,30 @@ api.interceptors.response.use(
 );
 
 export const recipeApi = {
-  search: async (params: { query: string }) => {
-    const { data } = await api.get('/recipes/complexSearch', { params });
-    return data.results;
+  search: async (params: { query: string; offset?: number; number?: number }): Promise<SearchResponse> => {
+    const { data } = await api.get('/recipes/complexSearch', {
+      params: {
+        ...params,
+        number: params.number || 12 // Default to 12 recipes per page
+      }
+    });
+    return {
+      results: data.results.map(validateRecipe),
+      totalResults: data.totalResults,
+      offset: params.offset || 0,
+      number: params.number || 12
+    };
   },
 
-  getById: async (id: number) => {
+  getById: async (id: number): Promise<Recipe> => {
     const { data } = await api.get(`/recipes/${id}/information`);
-    return data;
+    return validateRecipe(data);
   },
 
-  getRandomRecipes: async (number: number = 10) => {
+  getRandomRecipes: async (number: number = 10): Promise<Recipe[]> => {
     const { data } = await api.get('/recipes/random', {
       params: { number },
     });
-    return data.recipes;
+    return data.recipes.map(validateRecipe);
   },
 };
