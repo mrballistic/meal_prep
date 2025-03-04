@@ -1,6 +1,10 @@
-# System Patterns
+# System Patterns - Meal Planning Application
+
+## Overview
+This document builds upon the technical requirements defined in projectbrief.md, establishing the architectural patterns and technical decisions that shape the implementation. These patterns inform the active development tracked in activeContext.md.
 
 ## Architecture Overview
+_Implementing the technical requirements from projectbrief.md:_
 
 ```mermaid
 graph TD
@@ -14,6 +18,7 @@ graph TD
 ```
 
 ## Directory Structure
+_Supporting the technical requirements and quality standards from projectbrief.md:_
 ```
 src/
 ├── components/      # Reusable UI components
@@ -31,8 +36,10 @@ src/
 ```
 
 ## Core Design Patterns
+_These patterns implement the technical requirements while supporting the quality standards defined in projectbrief.md:_
 
 ### 1. Component Architecture
+_Supporting responsive design and accessibility requirements:_
 - Atomic Design Methodology
   - Atoms: Basic UI elements
   - Molecules: Simple component combinations
@@ -41,6 +48,7 @@ src/
   - Pages: Complete views
 
 ### 2. State Management
+_Implementing the data management requirements:_
 ```mermaid
 graph TD
     RC[RecipeContext] --> LS[Local Storage]
@@ -55,6 +63,7 @@ graph TD
 - TypeScript for type safety
 
 ### 3. Data Flow Patterns
+_Supporting efficient state management requirements:_
 ```mermaid
 graph LR
     A[User Action] --> B[Component Handler]
@@ -64,6 +73,7 @@ graph LR
 ```
 
 ### 4. Component Patterns
+_Implementing quality standards and user experience requirements:_
 - Controlled components for forms
 - Render props for complex logic
 - Component composition
@@ -72,6 +82,7 @@ graph LR
 - Lazy loading
 
 ### 5. Hook Patterns
+_Supporting efficient state management and performance requirements:_
 - Custom hooks for reusable logic
 - Data fetching hooks
 - State management hooks
@@ -79,8 +90,10 @@ graph LR
 - Memoization
 
 ## Technical Implementation
+_These implementations fulfill the technical requirements while adhering to the quality standards from projectbrief.md:_
 
 ### 1. API Integration
+_Supporting recipe search functionality requirements:_
 ```typescript
 // Pattern for API service methods
 interface ApiMethod<T, R> {
@@ -100,6 +113,7 @@ const apiMethod: ApiMethod<Params, Response> = async (params) => {
 ```
 
 ### 2. Storage Pattern
+_Implementing local storage persistence requirements:_
 ```typescript
 // Type-safe storage pattern
 interface Storage<T> {
@@ -124,6 +138,7 @@ const createStorage = <T>(): Storage<T> => ({
 ```
 
 ### 3. Context Pattern
+_Supporting efficient state management requirements:_
 ```typescript
 // Context with reducer pattern
 interface State<T> {
@@ -145,8 +160,10 @@ const reducer = <T>(state: State<T>, action: Action<T>): State<T> => {
 ```
 
 ## Performance Patterns
+_Implementing the performance optimization requirements from projectbrief.md:_
 
 ### 1. Loading States
+_Supporting user experience requirements:_
 - Skeleton screens for content loading
 - Progressive image loading
 - Lazy route loading
@@ -166,8 +183,10 @@ const reducer = <T>(state: State<T>, action: Action<T>): State<T> => {
 - Code splitting
 
 ## Testing Patterns
+_Implementing the comprehensive testing requirements from projectbrief.md:_
 
 ### 1. Component Testing
+_Supporting quality standards:_
 - Render testing
 - User interaction testing
 - Snapshot testing
@@ -186,8 +205,10 @@ const reducer = <T>(state: State<T>, action: Action<T>): State<T> => {
 - State updates testing
 
 ## Error Handling Patterns
+_Supporting quality standards and user experience requirements:_
 
 ### 1. Error Boundaries
+_Implementing error handling requirements:_
 - Component-level error catching
 - Fallback UI components
 - Error reporting
@@ -200,6 +221,7 @@ const reducer = <T>(state: State<T>, action: Action<T>): State<T> => {
 - Graceful degradation
 
 ## Accessibility Patterns
+_Implementing accessibility compliance requirements from projectbrief.md:_
 - ARIA labels
 - Keyboard navigation
 - Focus management

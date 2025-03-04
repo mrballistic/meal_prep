@@ -1,6 +1,10 @@
-# Meal Planning Application
+# Meal Planning Application - Project Brief
+
+## Foundation Overview
+This document serves as the foundation for all other documentation, defining the core vision and requirements that shape the entire project.
 
 ## Project Overview
+_This overview drives the product context, system patterns, and technical decisions documented in other files._
 A React-based meal planning application that helps users search for recipes, save their favorites, and plan their meals for the week.
 
 ## Core Requirements
@@ -42,7 +46,8 @@ A React-based meal planning application that helps users search for recipes, sav
    - Accessibility compliance
    - Performance optimization
 
-## Project Scope
+## Project Scope and Boundaries
+_These scope definitions inform the architectural decisions in systemPatterns.md and implementation details in techContext.md._
 ### In Scope
 - Recipe search functionality
 - Recipe saving system
@@ -60,7 +65,8 @@ A React-based meal planning application that helps users search for recipes, sav
 - Meal plan sharing
 - Nutritional analysis
 
-## Success Criteria
+## Success Criteria and Guiding Principles
+_These criteria guide the decisions documented in productContext.md and the implementation tracked in activeContext.md and progress.md._
 1. Users can efficiently search and save recipes
 2. Weekly meal planning is intuitive and flexible
 3. Application works offline with local storage
