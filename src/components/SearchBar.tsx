@@ -12,7 +12,7 @@ export const SearchBar = ({ value, onChange }: SearchBarProps) => {
   };
 
   return (
-    <Box sx={{ my: 2 }}>
+    <Box sx={{ my: 2 }} data-testid="SearchBar-root">
       <TextField
         fullWidth
         label="Search Recipes"

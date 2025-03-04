@@ -184,6 +184,85 @@ it('shows loading state', () => {
 });
 ```
 
+#### Testing MUI Components
+```typescript
+// Mock MUI components with theme and style support
+// src/__mocks__/@mui/material.tsx
+
+// TextField with fullWidth and accessibility support
+export const TextField = (props: any) => {
+  const { fullWidth, InputProps = {}, label, ...rest } = props;
+  return (
+    <div 
+      className={`MuiFormControl-root ${fullWidth ? 'MuiFormControl-fullWidth' : ''}`}
+      style={fullWidth ? { width: '100%' } : undefined}
+    >
+      <input
+        type="text"
+        aria-label={label}
+        aria-describedby={InputProps['aria-describedby']}
+        {...rest}
+        {...InputProps}
+      />
+    </div>
+  );
+};
+
+// Box with sx prop and theme spacing support
+export const Box = (props: any) => {
+  const { sx, ...rest } = props;
+  const style = sx && typeof sx === 'object' ? {
+    ...(sx.my ? { marginTop: `${sx.my * 8}px`, marginBottom: `${sx.my * 8}px` } : {})
+  } : {};
+  
+  return <div style={style} {...rest} />;
+};
+
+// Example tests for MUI components
+describe('MUI Component Testing', () => {
+  it('tests fullWidth prop', () => {
+    render(<TextField fullWidth />);
+    const element = screen.getByRole('textbox');
+    expect(element.closest('.MuiFormControl-root')).toHaveStyle({ width: '100%' });
+  });
+
+  it('tests theme spacing', () => {
+    render(<Box sx={{ my: 2 }} />);
+    const element = screen.getByRole('generic');
+    expect(element).toHaveStyle({ 
+      marginTop: '16px',     // 2 * 8px
+      marginBottom: '16px'   // 2 * 8px
+    });
+  });
+
+  it('tests keyboard interactions', () => {
+    render(<TextField label="Test Input" />);
+    const input = screen.getByRole('textbox');
+    
+    // Always focus before keyboard events
+    input.focus();
+    fireEvent.keyDown(input, { key: 'a', code: 'KeyA' });
+    
+    // Verify focus state
+    expect(input).toHaveFocus();
+    expect(document.activeElement).toBe(input);
+  });
+
+  it('tests label rendering', () => {
+    render(<TextField label="Test Label" />);
+    // Test both the visible label and ARIA label
+    expect(screen.getByText('Test Label')).toBeInTheDocument();
+    expect(screen.getByRole('textbox')).toHaveAttribute('aria-label', 'Test Label');
+  });
+});
+
+// Important patterns for MUI testing:
+// 1. Always test both visible labels and ARIA attributes
+// 2. Focus elements before testing keyboard interactions
+// 3. Use both toHaveFocus() and document.activeElement checks
+// 4. Remember to handle theme spacing conversions (1 unit = 8px)
+```
+
 #### Testing Error States
 ```typescript
 it('shows error message', async () => {
